@@ -41,17 +41,15 @@ pages.forEach(function(pathname) {
         * 另外，UglifyJsPlugin会在压缩代码的时候连同html一起压缩。
         * 为避免压缩html，需要在html-loader上配置'html?-minimize'，见loaders中html-loader的配置。
          */
-        minify: { //压缩HTML文件
-            removeComments: true, //移除HTML中的注释
-            collapseWhitespace: false //删除空白符与换行符
-        }
+        // minify: { //压缩HTML文件
+        //     removeComments: true, //移除HTML中的注释
+        //     collapseWhitespace: false //删除空白符与换行符
+        // }
     };
     if (pathname in prodConfig.entry) {
         conf.favicon = 'static/images/favicon.ico';
         conf.inject = 'body';
         conf.chunks = ['vendors', pathname];
-        console.log(config.build.assetsPublicPath + pathname)
-        // conf.chunks = ['vendors', config.build.assetsPublicPath + pathname];
         conf.hash = true;
     }
     prodConfig.plugins.push(new HtmlWebpackPlugin(conf));

@@ -55,8 +55,7 @@ function startServer () {
         if (error) {
             throw error
         } else {
-            console.info("==> \n🌎  服务启动成功，监听端口：%s. \n在浏览器中打开 \nhttp://localhost:%s/index.html", port, port, port)
-            // open("http://"+ utils.getLocalIP()['en0'] +":8086/views/index.html")
+            console.info("==> \n🌎  服务启动成功，监听端口：%s. \n在浏览器中打开 \nhttp://localhost:%s/page/index.html", port, port, port)
         }
     })
 }
