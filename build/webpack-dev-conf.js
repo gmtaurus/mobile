@@ -38,7 +38,7 @@ pages.forEach(function(pathname) {
         // }
     };
     if (pathname in devConfig.entry) {
-        conf.favicon = 'static/images/favicon.ico';
+        conf.favicon = path.join(__dirname, '../static/images/favicon.ico');
         conf.inject = 'body';
         conf.chunks = ['vendors', pathname];
         conf.hash = true;
