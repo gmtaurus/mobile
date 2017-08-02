@@ -1,32 +1,29 @@
 var path = require('path');
 var glob = require('glob');
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var webpackBaseConfig = require('./webpack-base-conf.js')
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var webpackBaseConfig = require('./webpack-base-conf.js');
+var config = require('../config/index');
 var devConfig = {};
 devConfig.devtool = 'eval-source-map'
-
-devConfig = Object.assign(webpackBaseConfig, {
-    plugins: [
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: 'dev'
-            }
-        }),
-        // new HtmlWebpackPlugin({
-        //     filename: './index.html',
-        //     template: './index.html',
-        //     inject: true
-        // })
-    ]
+var devPlugins = [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.DefinePlugin({
+        'process.env': {
+            NODE_ENV: config.dev.env
+        }
+    })
+]
+devPlugins.forEach(function(item){
+    webpackBaseConfig.plugins.push(item)
 })
+devConfig = Object.assign(webpackBaseConfig, {});
 var pages = Object.keys(getEntry('page/**/*.html', 'page/'));
 pages.forEach(function(pathname) {
     var conf = {
-        filename: 'page/views/' + pathname + '.html', //生成的html存放路径，相对于path
+        filename: 'page/' + pathname + '.html', //生成的html存放路径，相对于path
         template: 'page/' + pathname + '.html', //html模板路径
         inject: false,    //js插入的位置，true/'head'/'body'/false
         /*

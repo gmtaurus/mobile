@@ -1,15 +1,13 @@
-// https://github.com/shelljs/shelljs
-require('shelljs/global')
-// env.NODE_ENV = 'production'
+var path = require('path');
+var webpack = require('webpack');
+var shelljs = require('shelljs/global');
+var config = require('../config/index');
+if (!process.env.NODE_ENV) process.env.NODE_ENV = JSON.parse(config.build.env.NODE_ENV)
 
-var path = require('path')
-// var config = require('../config')
-var webpack = require('webpack')
-var webpackConfig = require('./webpack-prod-conf')
-
-// var assetsPath = path.join(__dirname + "../static")
-// // var assetsPath = path.join(config.build.assetsRoot, config.build.assetsSubDirectory)
-// rm('-rf', assetsPath)
+var webpackConfig = require('./webpack-prod-conf');
+var outpath = path.join(__dirname, '../output');
+var assetsPath = path.join(outpath, './static');
+rm('-rf', outpath)
 // mkdir('-p', assetsPath)
 // cp('-R', 'static/*', assetsPath)
 

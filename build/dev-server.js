@@ -5,8 +5,10 @@ var webpack = require('webpack');
 const serveStatic = require('serve-static')
 var webpackDevMiddle = require('webpack-dev-server');
 var webpackHotMiddle = require('webpack-hot-middleware');
-
+var config = require('../config/index');
+if (!process.env.NODE_ENV) process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 var webpackConfig = require('./webpack-dev-conf.js');
+
 
 function server() {
     this.app = express();
@@ -43,6 +45,7 @@ function bindWebpack() {
     this.app.use(hotMiddleware);
 }
 function bindStatic() {
+    var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
     this.app.use("/static", serveStatic(path.join(__dirname, '../static')))
 }
 function startServer () {
